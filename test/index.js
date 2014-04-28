@@ -18,10 +18,11 @@ describe('middleman, middleware manager', function () {
   });
 
   it('should add middleware to use', function () {
-    middleman
+    var self = middleman
     .use(testMiddleWare)
     .use(errorMiddleWare);
 
+    expect(self).to.equal(middleman);
   });
 
   it('should handle middlewares with no type', function () {
@@ -64,9 +65,35 @@ describe('middleman, middleware manager', function () {
       expect(err).to.equal('oups !');
     });
   });
+
+  it('should handle multiple middlewares', function() {
+    middleman
+    .use(incMiddleware)
+    .use(incMiddleware)
+    .use(incMiddleware)
+    .handle('', req, res, function() {
+      expect(res.count).to.equal(3);
+    });
+  });
+
+  it('should handle multiple handling calls', function() {
+    middleman
+    .use(incMiddleware)
+    .handle('', req, res);
+    middleman
+    .handle('', req, res, function() {
+      expect(res.count).to.equal(2);
+    });
+  });
 });
 
 function testMiddleWare(err, req, res, next) {
+  next();
+}
+
+function incMiddleware(err, req, res, next) {
+  if (!res.count) res.count = 0;
+  res.count++;
   next();
 }
 
