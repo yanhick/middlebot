@@ -1,6 +1,6 @@
 #MiddleMan
 
-A generic middleware manager, inspired by Connect.
+A generic middleware manager, inspired by Connect. Instead of using routes, you can use any category you need.
 
 ## Use
 
