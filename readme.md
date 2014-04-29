@@ -13,6 +13,12 @@ A generic middleware manager, inspired by Connect. Instead of using routes, you 
     var middleware = function(err, req, res, next) {
       //do stuff here...
       next();
+      
+      //if there was an error call next with an error object
+      next(err);
+
+      //middlewares execution can be stop this way
+      res.end();
     }
 
     //register middleware to be called when ‘mymiddlewares’ is handled
