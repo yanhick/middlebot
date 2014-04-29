@@ -23,7 +23,7 @@ A generic middleware manager, inspired by Connect. Instead of using routes, you 
     var res = {};
 
     //called once all middlewares are handled
-    var done = function (err) {
+    var done = function (err, req, res) {
       if (err) console.log('error in one of the middleware');
 
       console.log('middleware executed correctly');
