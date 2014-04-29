@@ -28,7 +28,7 @@ describe('middleman, middleware manager', function () {
   it('should handle middlewares with no type', function () {
     middleman
     .use(transformMiddleware)
-    .handle('all', req, res, function () {
+    .handle('all', req, res, function (err, req, res) {
       expect(res.test).to.equal('test');
     });
   });
@@ -37,7 +37,7 @@ describe('middleman, middleware manager', function () {
     middleman
     .use('test', testMiddleWare)
     .use('test', testMiddleWare)
-    .handle('test', {}, {}, function (err) {
+    .handle('test', {}, {}, function (err, req, res) {
       expect(err).not.to.exist;
     });
   });
@@ -45,7 +45,7 @@ describe('middleman, middleware manager', function () {
   it('should handle modifing the response', function () {
     middleman
     .use('test', transformMiddleware)
-    .handle('test', req, res, function() {
+    .handle('test', req, res, function(err, req, res) {
       expect(res.test).to.equal('test');
     });
   });
@@ -53,7 +53,7 @@ describe('middleman, middleware manager', function () {
   it('should handle errors in middlewares', function () {
     middleman
     .use('test', errorMiddleWare)
-    .handle('test', {}, {}, function (err) {
+    .handle('test', {}, {}, function (err, req, res) {
       expect(err).to.equal('oh no !');
     });
   });
@@ -61,7 +61,7 @@ describe('middleman, middleware manager', function () {
   it('should handle exceptions', function() {
     middleman
     .use(exceptionMiddleware)
-    .handle('all', req, res, function(err) {
+    .handle('all', req, res, function(err, req, res) {
       expect(err).to.equal('oups !');
     });
   });
@@ -71,7 +71,7 @@ describe('middleman, middleware manager', function () {
     .use(incMiddleware)
     .use(incMiddleware)
     .use(incMiddleware)
-    .handle('', req, res, function() {
+    .handle('', req, res, function(err, req, res) {
       expect(res.count).to.equal(3);
     });
   });
@@ -81,7 +81,7 @@ describe('middleman, middleware manager', function () {
     .use(incMiddleware)
     .handle('', req, res);
     middleman
-    .handle('', req, res, function() {
+    .handle('', req, res, function(err, req, res) {
       expect(res.count).to.equal(2);
     });
   });
