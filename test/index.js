@@ -76,6 +76,15 @@ describe('middleman, middleware manager', function () {
     });
   });
 
+  it('should end middleware execution', function () {
+    middleman
+    .use(endMiddleware)
+    .use(transformMiddleware)
+    .handle('', req, res, function(err, req, res) {
+      expect(res.test).to.not.exist;
+    });
+  });
+
   it('should handle multiple handling calls', function() {
     middleman
     .use(incMiddleware)
@@ -89,6 +98,10 @@ describe('middleman, middleware manager', function () {
 
 function testMiddleWare(err, req, res, next) {
   next();
+}
+
+function endMiddleware(err, req, res, next) {
+  res.end();
 }
 
 function incMiddleware(err, req, res, next) {
