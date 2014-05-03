@@ -25,7 +25,10 @@ A generic middleware manager, inspired by Connect. Instead of using routes, you 
     middleman.use('myMiddlewares', middleware);
 
     //middleware can be registered for mutiple types at once
-    middleman.use(['myMiddleWares, myOtherMiddlewares'], middleware)
+    middleman.use(['myMiddleWares, myOtherMiddlewares'], middleware);
+
+    //multiple middlewares can be registered at once
+    middleman.use('myMiddleWares', middleware, anotherMiddleware);
 
     //request and response objects
     var req = {};

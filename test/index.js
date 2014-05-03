@@ -30,6 +30,18 @@ describe('middleman, middleware manager', function () {
       .use(['firstType', 'secondType'], testMiddleWare);
       expect(self).to.equal(middleman);
     });
+
+    it('should add multiple middlewares at once', function () {
+      var self = middleman
+      .use(testMiddleWare, errorMiddleWare);
+      expect(self).to.equal(middleman);
+    });
+
+    it('should add multiple middlewares at once and a type', function () {
+      var self = middleman
+      .use('test', testMiddleWare, errorMiddleWare);
+      expect(self).to.equal(middleman);
+    });
   });
 
   describe('#handle', function() {
@@ -109,6 +121,14 @@ describe('middleman, middleware manager', function () {
       .handle('test', req, res);
       middleman
       .handle('test2', req, res, function(err, req, res) {
+        expect(res.count).to.equal(2);
+      });
+    });
+
+    it('should handle registering multiple middlewares at once', function() {
+      middleman
+      .use('test', incMiddleware, incMiddleware)
+      .handle('test', req, res, function(err, req, res) {
         expect(res.count).to.equal(2);
       });
     });
