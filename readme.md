@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/yanhick/middleman.svg?branch=master)](https://travis-ci.org/yanhick/middleman)
+
 #MiddleMan
 
 A generic middleware manager, inspired by Connect. Instead of using routes, you can use any category you need.
