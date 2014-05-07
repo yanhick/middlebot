@@ -1,6 +1,8 @@
-[![Build Status](https://travis-ci.org/yanhick/middlebot.svg?branch=master)](https://travis-ci.org/yanhick/middlebot)
-
 # middlebot
+
+[![Build Status](https://travis-ci.org/yanhick/middlebot.svg?branch=master)](https://travis-ci.org/yanhick/middlebot)
+[![Dependency Status](https://david-dm.org/yanhick/middlebot.svg?theme=shields.io)](https://david-dm.org/yanhick/middlebot)
+[![devDependency Status](https://david-dm.org/yanhick/middlebot/dev-status.svg?theme=shields.io)](https://david-dm.org/yanhick/middlebot#info=devDependencies)
 
 A generic middleware manager, inspired by Connect. Instead of using routes, you can use any category you need.
 
