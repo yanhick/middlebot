@@ -1,7 +1,7 @@
 {
   "name": "middlebot",
   "description": "generic connect-like middleware manager",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "test": "mocha"
   },
