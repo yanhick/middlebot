@@ -1,52 +1,52 @@
 'use strict';
 
-var Middlebot = require('../lib/');
+var middlebot = require('../lib');
 var chai = require('chai');
 var expect = chai.expect;
 
-describe('middlebot, middleware manager', function () {
-  var middlebot, req, res;
+describe('app, middleware manager', function () {
+  var app, req, res;
   beforeEach(function () {
-    middlebot = new Middlebot();
+    app = middlebot();
     req = {};
     res = {};
   });
 
   it('should be instantiated', function () {
-    expect(middlebot.use).to.exist;
-    expect(middlebot.handle).to.exist;
+    expect(app.use).to.exist;
+    expect(app.handle).to.exist;
   });
 
   describe('#use', function() {
     it('should add middleware to use', function () {
-      var self = middlebot
+      var self = app
       .use(testMiddleWare)
       .use(errorMiddleWare);
-      expect(self).to.equal(middlebot);
+      expect(self).to.equal(app);
     });
 
     it('should add multiple type at once', function () {
-      var self = middlebot
+      var self = app
       .use(['firstType', 'secondType'], testMiddleWare);
-      expect(self).to.equal(middlebot);
+      expect(self).to.equal(app);
     });
 
     it('should add multiple middlewares at once', function () {
-      var self = middlebot
+      var self = app
       .use(testMiddleWare, errorMiddleWare);
-      expect(self).to.equal(middlebot);
+      expect(self).to.equal(app);
     });
 
     it('should add multiple middlewares at once and a type', function () {
-      var self = middlebot
+      var self = app
       .use('test', testMiddleWare, errorMiddleWare);
-      expect(self).to.equal(middlebot);
+      expect(self).to.equal(app);
     });
   });
 
   describe('#handle', function() {
     it('should handle middlewares with no type', function () {
-      middlebot
+      app
       .use(transformMiddleware)
       .handle('all', req, res, function (err, req, res) {
         expect(res.test).to.equal('test');
@@ -54,7 +54,7 @@ describe('middlebot, middleware manager', function () {
     });
 
     it('should handle all middlewares of a type', function () {
-      middlebot
+      app
       .use('test', testMiddleWare)
       .use('test', testMiddleWare)
       .handle('test', {}, {}, function (err, req, res) {
@@ -63,7 +63,7 @@ describe('middlebot, middleware manager', function () {
     });
 
     it('should handle modifing the response', function () {
-      middlebot
+      app
       .use('test', transformMiddleware)
       .handle('test', req, res, function(err, req, res) {
         expect(res.test).to.equal('test');
@@ -71,7 +71,7 @@ describe('middlebot, middleware manager', function () {
     });
 
     it('should handle errors in middlewares', function () {
-      middlebot
+      app
       .use('test', errorMiddleWare)
       .handle('test', {}, {}, function (err, req, res) {
         expect(err).to.equal('oh no !');
@@ -79,7 +79,7 @@ describe('middlebot, middleware manager', function () {
     });
 
     it('should handle exceptions', function() {
-      middlebot
+      app
       .use(exceptionMiddleware)
       .handle('all', req, res, function(err, req, res) {
         expect(err).to.equal('oups !');
@@ -87,7 +87,7 @@ describe('middlebot, middleware manager', function () {
     });
 
     it('should handle multiple middlewares', function() {
-      middlebot
+      app
       .use(incMiddleware)
       .use(incMiddleware)
       .use(incMiddleware)
@@ -97,7 +97,7 @@ describe('middlebot, middleware manager', function () {
     });
 
     it('should end middleware execution', function () {
-      middlebot
+      app
       .use(endMiddleware)
       .use(transformMiddleware)
       .handle('', req, res, function(err, req, res) {
@@ -106,27 +106,27 @@ describe('middlebot, middleware manager', function () {
     });
 
     it('should handle multiple handling calls', function() {
-      middlebot
+      app
       .use(incMiddleware)
       .handle('', req, res);
-      middlebot
+      app
       .handle('', req, res, function(err, req, res) {
         expect(res.count).to.equal(2);
       });
     });
 
     it('should handle registering multiple types at once', function() {
-      middlebot
+      app
       .use(['test', 'test2'], incMiddleware)
       .handle('test', req, res);
-      middlebot
+      app
       .handle('test2', req, res, function(err, req, res) {
         expect(res.count).to.equal(2);
       });
     });
 
     it('should handle registering multiple middlewares at once', function() {
-      middlebot
+      app
       .use('test', incMiddleware, incMiddleware)
       .handle('test', req, res, function(err, req, res) {
         expect(res.count).to.equal(2);
