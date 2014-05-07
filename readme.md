@@ -19,15 +19,28 @@ npm install middlebot
   var app = require('middlebot')();
 
   // Middleware example.
-  var middleware = function(err, req, res, next) {
+  var middleware = function(req, res, next) {
     // Do stuff here...
     next();
 
     // If there was an error call next with an error object.
-    next(err);
+    next('oups !');
 
     // Middlewares execution can be stop this way.
     res.end();
+  }
+  
+  // Error middleware example, only called when a previous middleware
+  //sent an error or throwed an exception
+  var errorMiddleware = function(err, req, res, next) {
+    //handle error...
+    
+    //calls following error middlewares
+    next(err);
+    
+    //next can be called without err to ignore error and resume
+    //normal middleware execution
+    next();
   }
 
   // Register middleware to be called when ‘myMiddlewares’ is handled.
