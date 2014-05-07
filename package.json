@@ -1,7 +1,7 @@
 {
   "name": "middlebot",
   "description": "generic connect-like middleware manager",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "test": "mocha test/ --recursive"
   },
@@ -12,7 +12,7 @@
   "author": "Yannick Dominguez <yannick.dominguez@gmail.com>",
   "main": "lib/index.js",
   "devDependencies": {
-    "chai": "~1.7.2",
-    "mocha": "~1.13.0"
+    "chai": "^1.9.1",
+    "mocha": "^1.18.2"
   }
 }
