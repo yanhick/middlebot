@@ -173,6 +173,15 @@ describe('app, middleware manager', function () {
         expect(res.test).to.equal('test');
       });
     });
+
+    it('should only execute middlewares with the exact handling type', function() {
+      app
+      .use('test', incMiddleware)
+      .use('testSomethingElse', incMiddleware)
+      .handle('test', req, res, function(err,req, res) {
+        expect(res.count).to.equal(1);
+      });
+    });
   });
 });
 
