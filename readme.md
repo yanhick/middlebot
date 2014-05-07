@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/yanhick/middleman.svg?branch=master)](https://travis-ci.org/yanhick/middleman)
+[![Build Status](https://travis-ci.org/yanhick/middlebot.svg?branch=master)](https://travis-ci.org/yanhick/middlebot)
 
-#MiddleMan
+#Middlebot
 
 A generic middleware manager, inspired by Connect. Instead of using routes, you can use any category you need.
 
@@ -8,8 +8,8 @@ A generic middleware manager, inspired by Connect. Instead of using routes, you 
 
 ```Javascript
 
-    //instantiate middleman
-    var middleman = require('middleman')();
+    //instantiate middlebot
+    var middlebot = require('middlebot')();
 
     //middleware example
     var middleware = function(err, req, res, next) {
@@ -24,13 +24,13 @@ A generic middleware manager, inspired by Connect. Instead of using routes, you 
     }
 
     //register middleware to be called when ‘myMiddlewares’ is handled
-    middleman.use('myMiddlewares', middleware);
+    middlebot.use('myMiddlewares', middleware);
 
     //middleware can be registered for mutiple types at once
-    middleman.use(['myMiddleWares, myOtherMiddlewares'], middleware);
+    middlebot.use(['myMiddleWares, myOtherMiddlewares'], middleware);
 
     //multiple middlewares can be registered at once
-    middleman.use('myMiddleWares', middleware, anotherMiddleware);
+    middlebot.use('myMiddleWares', middleware, anotherMiddleware);
 
     //request and response objects
     var req = {};
@@ -45,7 +45,7 @@ A generic middleware manager, inspired by Connect. Instead of using routes, you 
 
     //handle all middlewares registered for ‘myMiddleWares’ with
     //req and res.
-    middleman.handle('myMiddleWares', req, res, done);
+    middlebot.handle('myMiddleWares', req, res, done);
 ```
 
 
